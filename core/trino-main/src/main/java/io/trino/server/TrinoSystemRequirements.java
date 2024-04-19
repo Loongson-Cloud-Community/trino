@@ -71,13 +71,16 @@ final class TrinoSystemRequirements
         String osName = StandardSystemProperty.OS_NAME.value();
         String osArch = StandardSystemProperty.OS_ARCH.value();
         if ("Linux".equals(osName)) {
-            if (!ImmutableSet.of("amd64", "aarch64", "ppc64le").contains(osArch)) {
-                failRequirement("Trino requires amd64, aarch64, or ppc64le on Linux (found %s)", osArch);
+            if (!ImmutableSet.of("amd64", "aarch64", "ppc64le", "loongarch64", "loong64").contains(osArch)) {
+                failRequirement("Trino requires amd64, aarch64, ppc64le or loongarch64 on Linux (found %s)", osArch);
             }
             if ("aarch64".equals(osArch)) {
                 warnRequirement("Support for the ARM architecture is experimental");
             }
             else if ("ppc64le".equals(osArch)) {
+                warnRequirement("Support for the POWER architecture is experimental");
+            }
+            else if ("loongarch64".equals(osArch) || "loong64".equals(osArch)) {
                 warnRequirement("Support for the POWER architecture is experimental");
             }
         }

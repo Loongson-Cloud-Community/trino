@@ -11,13 +11,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-FROM registry.access.redhat.com/ubi8/ubi
+FROM cr.loongnix.cn/openanolis/anolisos:8.8
 
-ENV JAVA_HOME /usr/lib/jvm/zulu11
+ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-11.0.22.0.7-2.0.1.an8.loongarch64
 RUN \
     set -xeu && \
-    yum -y -q install https://cdn.azul.com/zulu/bin/zulu-repo-1.0.0-1.noarch.rpm && \
-    yum -y -q install python3 zulu11-jdk less && \
+    yum -y -q install python3 java-11-openjdk-devel less && \
     yum -q clean all && \
     rm -rf /var/cache/yum && \
     alternatives --set python /usr/bin/python3 && \
